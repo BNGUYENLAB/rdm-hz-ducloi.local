@@ -7,7 +7,7 @@ on:
 
 env:
   AWS-REGION: 'ap-southeast-1'
-  AWS-ROLE: 'arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local'
+  AWS-ROLE: 'arn:aws:iam::849864070883:role/github_actions_admin_ducloi_local'
   RUNNER-LABEL: 'small-amd64'
   TERRAFORM-VERSION: '1.5.7'
 
