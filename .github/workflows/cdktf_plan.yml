@@ -62,7 +62,8 @@ jobs:
 
     - name: Install Python packages
       run: |
-        pipenv install route53-records-package/
+        pipenv install
+        pipenv run pip install -e route53-records-package/
 
     - name: Configure AWS credentials via OIDC
       uses: aws-actions/configure-aws-credentials@v4
