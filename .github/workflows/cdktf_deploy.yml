@@ -40,7 +40,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: BNGUYENLAB/rdm-route53-records-package
-        ref: dev
+        ref: main
         path: route53-records-package
         # ssh-key: ${{ secrets.ROUTE53_PACKAGE_SSH_KEY }}
 
