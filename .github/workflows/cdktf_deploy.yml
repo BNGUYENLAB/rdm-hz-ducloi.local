@@ -10,7 +10,7 @@ env:
   AWS-ROLE: 'arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local'
   RUNNER-LABEL: 'small-amd64'
   TERRAFORM-VERSION: '1.5.7'
-  
+
 permissions:
   id-token: write
   contents: read
@@ -31,7 +31,7 @@ jobs:
     # - name: Checkout pipeline templates
     #   uses: actions/checkout@v4
     #   with:
-    #     repository: karcher-digital/rdm-pipeline-templates
+    #     repository: BNGUYENLAB/rdm-pipeline-templates
     #     ref: main
     #     path: pipeline-templates
     #     ssh-key: ${{ secrets.PIPELINE_TEMPLATES_SSH_KEY }}
@@ -39,7 +39,7 @@ jobs:
     - name: Checkout route53 records package
       uses: actions/checkout@v4
       with:
-        repository: karcher-digital/rdm-route53-records-package
+        repository: BNGUYENLAB/rdm-route53-records-package
         ref: dev
         path: route53-records-package
         # ssh-key: ${{ secrets.ROUTE53_PACKAGE_SSH_KEY }}
