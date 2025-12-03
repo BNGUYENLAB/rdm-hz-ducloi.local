@@ -28,14 +28,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v5
 
-    # - name: Checkout pipeline templates
-    #   uses: actions/checkout@v4
-    #   with:
-    #     repository: BNGUYENLAB/rdm-pipeline-templates
-    #     ref: main
-    #     path: pipeline-templates
-    #     ssh-key: ${{ secrets.PIPELINE_TEMPLATES_SSH_KEY }}
-
     - name: Checkout route53 records package
       uses: actions/checkout@v4
       with:
