@@ -11,9 +11,9 @@ from cdktf_cdktf_provider_aws.provider import AwsProviderAssumeRole
 REGION = "ap-southeast-1"
 ZONE_NAME = "ducloi.local"
 ZONE_NAME_UNDERSCORE = ZONE_NAME.replace(".", "_")
-ASSUME_ROLE_ARN = f"arn:aws:iam::849864070883:role/{ZONE_NAME_UNDERSCORE}"
+ASSUME_ROLE_ARN = f"arn:aws:iam::849864070883:role/github_actions_readonly_{ZONE_NAME_UNDERSCORE}"
 ZONE_ID = "Z04310523PE6MMFQSSP6Z"
-TF_STATE_BUCKET = "tf-state-ak-dns-prod"
+TF_STATE_BUCKET = "tf-state-bnguyen-dns-prod"
 
 app = App()
 
@@ -22,12 +22,12 @@ create_records_zone(
     app=app,
     provider=providerAwsFactory(
         region=REGION,
-        assume_role=[AwsProviderAssumeRole(role_arn=ASSUME_ROLE_ARN)]),
+        assume_role=None),
     maxGroupSize=100,
     zoneId=ZONE_ID,
     s3BackendRecord=s3BackendFactory(
         region=REGION,
-        role_arn=ASSUME_ROLE_ARN,
+        role_arn=None,
         bucket=TF_STATE_BUCKET,
         keyPath=f"terraform/{ZONE_NAME}"),
     route53stack="route53",

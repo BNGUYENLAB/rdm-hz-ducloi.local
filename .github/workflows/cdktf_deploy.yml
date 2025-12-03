@@ -1,0 +1,93 @@
+name: 'CDKTF Deploy'
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS-REGION: 'ap-southeast-1'
+  AWS-ROLE: 'arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local'
+  RUNNER-LABEL: 'small-amd64'
+  TERRAFORM-VERSION: '1.5.7'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: 'CDKTF Deploy'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: cdktf-deploy
+      cancel-in-progress: false
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # - name: Checkout pipeline templates
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: BNGUYENLAB/rdm-pipeline-templates
+    #     ref: main
+    #     path: pipeline-templates
+    #     ssh-key: ${{ secrets.PIPELINE_TEMPLATES_SSH_KEY }}
+
+    - name: Checkout route53 records package
+      uses: actions/checkout@v4
+      with:
+        repository: BNGUYENLAB/rdm-route53-records-package
+        ref: dev
+        path: route53-records-package
+        # ssh-key: ${{ secrets.ROUTE53_PACKAGE_SSH_KEY }}
+
+    - name: Install terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TERRAFORM-VERSION }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install pipenv
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install CDKTF CLI
+      run: npm install --global cdktf-cli@latest
+
+    - name: Install Python packages
+      run: |
+        pipenv run pip install -e route53-records-package/
+
+    - name: Configure AWS credentials via OIDC
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN_ADMIN }}
+        role-session-name: GitHubActions-Deploy-${{ github.run_id }}
+        aws-region: eu-central-1
+
+    - name: CDKTF Deploy
+      run: |
+        pipenv run cdktf deploy --auto-approve
+
+    - name: Notify deployment status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ CDKTF deployment completed successfully"
+        else
+          echo "❌ CDKTF deployment failed"
+          exit 1
+        fi

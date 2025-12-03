@@ -39,9 +39,13 @@ jobs:
       uses: actions/checkout@v5
       with:
         repository: BNGUYENLAB/rdm-route53-records-package
-        ref: dev
+        ref: main
         path: route53-records-package
-        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TERRAFORM-VERSION }}
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -63,7 +67,8 @@ jobs:
 
     - name: Install Python packages
       run: |
-        pipenv install route53-records-package/
+        pipenv install
+        pipenv run pip install -e route53-records-package/
 
     - name: Configure AWS credentials via OIDC
       uses: aws-actions/configure-aws-credentials@v4
@@ -85,7 +90,9 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const fs = require('fs');
-          const diff = fs.readFileSync('diff_output.txt', 'utf8');
+          let diff = fs.readFileSync('diff_output.txt', 'utf8');
+          // Remove ANSI color codes
+          diff = diff.replace(/\x1B\[[0-9;]*[mGKHF]/g, '');
           const output = `#### CDKTF Diff 📋
           <details><summary>Show Diff</summary>
 
