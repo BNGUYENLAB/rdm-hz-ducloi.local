@@ -11,7 +11,7 @@ from cdktf_cdktf_provider_aws.provider import AwsProviderAssumeRole
 REGION = "ap-southeast-1"
 ZONE_NAME = "ducloi.local"
 ZONE_NAME_UNDERSCORE = ZONE_NAME.replace(".", "_")
-ASSUME_ROLE_ARN = f"arn:aws:iam::849864070883:role/github_actions_admin_{ZONE_NAME_UNDERSCORE}"
+ASSUME_ROLE_ARN = f"arn:aws:iam::849864070883:role/github_actions_readonly_{ZONE_NAME_UNDERSCORE}"
 ZONE_ID = "Z04310523PE6MMFQSSP6Z"
 TF_STATE_BUCKET = "tf-state-bnguyen-dns-prod"
 
