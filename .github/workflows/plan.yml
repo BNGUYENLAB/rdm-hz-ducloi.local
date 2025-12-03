@@ -1,0 +1,23 @@
+name: 'CDKTF Diff'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  repository-projects: read
+
+jobs:
+  Diff:
+    name: 'CDKTF'
+    concurrency:
+      group: cdktf-deploy
+      cancel-in-progress: false
+    uses: BNGUYENLAB/rdm-pipeline-templates/.github/workflows/hz_plan_template.yml@main
+    with:
+      aws-role: "arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local"
+      runner_label: small
+      aws-region: ap-southeast-1
