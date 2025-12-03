@@ -1,4 +1,4 @@
-name: 'CDKTF Plan'
+name: 'Plan'
 
 on:
   workflow_call:
@@ -22,8 +22,6 @@ jobs:
     name: 'CDKTF Diff'
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    container:
-      image: hashicorp/terraform:1.5.7
     
     steps:
     - name: Checkout repository
@@ -43,6 +41,13 @@ jobs:
         repository: BNGUYENLAB/rdm-route53-records-package
         ref: main
         path: route53-records-package
+    
+    - name: Install terraform
+      run: |
+        curl -LO https://releases.hashicorp.com/terraform/${{ inputs.terraform-version }}/terraform_${{ inputs.terraform-version }}_linux_amd64.zip
+        unzip terraform_${{ inputs.terraform-version }}_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+        sudo chmod +x /usr/local/bin/terraform
 
     - name: Set up Python
       uses: actions/setup-python@v5
