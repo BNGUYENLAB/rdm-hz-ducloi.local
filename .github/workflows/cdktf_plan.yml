@@ -80,7 +80,7 @@ jobs:
     - name: CDKTF Diff
       id: diff
       run: |
-        pipenv run cdktf diff 2>&1 | tee diff_output.txt
+        pipenv run cdktf diff --no-color 2>&1 | tee diff_output.txt
       continue-on-error: true
 
     - name: Comment PR with diff
