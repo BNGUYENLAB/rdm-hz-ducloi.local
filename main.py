@@ -22,7 +22,7 @@ create_records_zone(
     app=app,
     provider=providerAwsFactory(
         region=REGION,
-        assume_role=[AwsProviderAssumeRole(role_arn=ASSUME_ROLE_ARN)]),
+        assume_role=None),
     maxGroupSize=100,
     zoneId=ZONE_ID,
     s3BackendRecord=s3BackendFactory(
