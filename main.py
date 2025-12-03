@@ -27,7 +27,7 @@ create_records_zone(
     zoneId=ZONE_ID,
     s3BackendRecord=s3BackendFactory(
         region=REGION,
-        role_arn=ASSUME_ROLE_ARN,
+        role_arn=None,
         bucket=TF_STATE_BUCKET,
         keyPath=f"terraform/{ZONE_NAME}"),
     route53stack="route53",
