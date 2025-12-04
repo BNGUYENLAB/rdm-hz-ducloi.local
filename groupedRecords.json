@@ -7,14 +7,5 @@
       "14.226.250.205"
     ],
     "group": "1"
-  },
-  {
-    "name": "working.ducloi.local",
-    "type": "A",
-    "ttl": 86400,
-    "records": [
-      "14.226.250.205"
-    ],
-    "group": "1"
   }
 ]
