@@ -21,4 +21,6 @@ jobs:
       aws-role: "arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local"
       runner_label: small
       aws-region: ap-southeast-1
-    secrets: inherit
+    # secrets: inherit
+    secrets:
+      route53-records-package-key: ${{ secrets.RDM_ROUTE53_RECORDS_PACKAGE_FETCH }}
