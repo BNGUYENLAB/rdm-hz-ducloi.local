@@ -9,7 +9,7 @@
     "group": "1"
   },
   {
-    "name": "tes.ducloi.local",
+    "name": "stage.ducloi.local",
     "type": "A",
     "ttl": 86400,
     "records": [
@@ -19,6 +19,15 @@
   },
   {
     "name": "dev.ducloi.local",
+    "type": "A",
+    "ttl": 86400,
+    "records": [
+      "14.226.250.205"
+    ],
+    "group": "1"
+  },
+  {
+    "name": "prod.ducloi.local",
     "type": "A",
     "ttl": 86400,
     "records": [
