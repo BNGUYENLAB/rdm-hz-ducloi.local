@@ -9,7 +9,7 @@
     "group": "1"
   },
   {
-    "name": "tes.ducloi.local",
+    "name": "stage.ducloi.local",
     "type": "A",
     "ttl": 86400,
     "records": [
