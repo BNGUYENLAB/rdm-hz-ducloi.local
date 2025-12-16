@@ -21,5 +21,3 @@ jobs:
       aws-role: "arn:aws:iam::849864070883:role/github_actions_readonly_ducloi_local"
       runner_label: small
       aws-region: ap-southeast-1
-      app_id: ${{ secrets.APP_ID }}
-      app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
